@@ -1,0 +1,4 @@
+ak, 30, it, m
+lily, 28, hr, f
+tiger, 32, it, m
+flower, 22, hr, f
