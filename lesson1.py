@@ -63,6 +63,7 @@ def guess_number_game():
         print("厉害，第一次就猜对了")
 
 
-# odd_or_even()
-# guess_number_game()
 get_around_area()
+odd_or_even()
+guess_number_game()
+
