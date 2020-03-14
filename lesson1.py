@@ -58,6 +58,12 @@ def guess_number():
         # 打印特别祝贺语
         print('欧吃矛')
 
+
 # print_round_area()
 # odd_or_even()
 guess_number()
+
+
+def get_sum(x, y):
+    return x + y
+print(sum(1, 3))
