@@ -1,52 +1,34 @@
-# 读取文件
-def read_file():
-    with open('lesson3.txt') as file:
-        return file.read()
+import requests
+import json
 
 
-# 处理得到的信息，获得2句话，一句是前五位品牌名称的。一句是出货量
-def get_info(input_contents):
-    # 分割句子
-    infos = input_contents.split('，')
-    # 初始化品牌句子，和出货量句子
-    brand_info = sell_info = ""
-    for temp in infos:
-        # 获取品牌句子
-        if '智能手机' in temp:
-            brand_info = temp
-        # 获取出货量句子
-        if '出货量分别为' in temp:
-            sell_info = temp
-
-    # 返回两个句子
-    return brand_info, sell_info
+# 调用api,获得返回的结果，并保存到文件
+def call_api_and_save_results_to_json_file():
+    # 定义我们的调用地址
+    address = 'https://interface.sina.cn/news/wap/fymap2020_data.d.json'
+    # 调用这个地址，得到返回结果
+    response = requests.get(address)
+    # 返回结果保存到json文件
+    with open('lesson3.json', 'w', encoding='utf_8') as file:
+        json.dump(response.json(), file, ensure_ascii=False, indent=2)
 
 
-# 分解信息
-def split_info(start_keyword, end_keyword, split_keyword, content):
-    # 初始化开始的索引位置，结束的索引位置
-    start_idx, end_idx = None, None
+# 读取json文件，并且做处理，拿到最新的海外疫情数据
+def read_file_and_process():
+    # 读取一个json文件
+    with open('lesson3.json', encoding='utf_8') as data_file:
+        data = json.load(data_file).get('data')
 
-    # 获取开始和结束的位置
-    if start_keyword is not None:
-        start_idx = content.find(start_keyword)
-    if end_keyword is not None:
-        end_idx = content.find(end_keyword)
-    # 截取 从开始到结束的 句子
-    info = content[start_idx:end_idx]
+    # 拿到海外数据
+    oversea_data = data.get('othertotal')
 
-    # 分割信息并返回
-    return info.split(split_keyword)
-
-contents = read_file()
-content_list = contents.split('。')
-brand, sell = get_info(content_list[0])
-brand_info = split_info(start_keyword='三星', end_keyword='智能', split_keyword='、', content=brand)
-sell_info = split_info('2', None, '、', sell)
-
-print(brand_info)
-print(sell_info)
-for i in range(5):
-    print("2019年，智能手机市场排名第{}的品牌是{}，全年手机出货量是{}".format(
-        i + 1, brand_info[i], sell_info[i]
+    # 模板“截止今日，海外数据为 xxxxxxx ”
+    print('截止今日，海外疫情最新数据， 确诊： {} 较昨日 {}， 死亡： {} 较昨日 {}， 治愈： {} 较昨日 {}'.format(
+        oversea_data.get('certain'), oversea_data.get('certain_inc'),
+        oversea_data.get('die'), oversea_data.get('die_inc'),
+        oversea_data.get('recure'), oversea_data.get('recure_inc')
     ))
+# call_api_and_save_results_to_json_file()
+
+
+read_file_and_process()

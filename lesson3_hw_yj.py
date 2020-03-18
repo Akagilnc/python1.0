@@ -58,7 +58,7 @@ def get_reports(brands_infos, ext_infos, report_template, n):
 
 
 # 调取函数，分割成语句
-info = split_phrase(read_file('lesson3.txt'))
+info = split_phrase(read_file('lesson3.json'))
 # 获取包含关键词的语句
 brand_info = get_info(info, '智能手机')
 shipment_info = get_info(info, '出货量分别为')

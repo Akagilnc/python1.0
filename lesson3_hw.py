@@ -62,7 +62,7 @@ def get_reports(brands_infos, ext_infos, report_template, n):
 
 
 # 调取函数
-contents = read_file('lesson3.txt')
+contents = read_file('lesson3.json')
 # 分割成包含关键词的语句，注意指定关键词不可在其他语句中出现
 brand_sentence = get_info(contents, '智能手机')
 shipment_sentence = get_info(contents, '出货量分别为')

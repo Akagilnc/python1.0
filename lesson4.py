@@ -9,7 +9,7 @@ def call_api():
     # 调用，并获取信息
     data = requests.get(address)
     # 保存到一个json文件
-    with open('2019_conv_shanghai_history.json', 'w') as file:
+    with open('2019_conv_shanghai_history.json', 'w', encoding='utf_8') as file:
         json.dump(data.json(), file, ensure_ascii=False, indent=4)
 
 
