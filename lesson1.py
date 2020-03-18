@@ -4,7 +4,7 @@ def print_round_area():
     pi = 3.14
     # 获取用户输入的r
     r = input('please input r: ')
-    r = int(r)
+    r = float(r)
     # pi * r 的平方
     area = pi * r ** 2
     print(area)
@@ -31,7 +31,7 @@ def odd_or_even():
 def guess_number():
     # 随机生成一个1-10答案
     import random
-    answer = random.randint(1, 11)
+    answer = random.randint(1, 10)
     # 获取用户输入的数字
     number = int(input('please guess a number: '))
     # 定义一个次数
@@ -59,11 +59,6 @@ def guess_number():
         print('欧吃矛')
 
 
-# print_round_area()
+print_round_area()
 # odd_or_even()
-guess_number()
-
-
-def get_sum(x, y):
-    return x + y
-print(sum(1, 3))
+# guess_number()

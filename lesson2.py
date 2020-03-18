@@ -1,45 +1,54 @@
-# 创建文件+写入内容
+# 创建文件
 def create_file():
-    # 创建文件
-    file = open('lesson2.txt', 'w', encoding='utf_8_ig')
-    # 写入内容
+    # 打开文件
+    file = open('lesson2.txt', 'w')
+    # 操作：写入数据
     file.write('ak, 32, it, m\n')
-    file.write('lily, 28, hr, f\n')
-    file.write('tiger, 35, it, m\n')
-    file.write('lisa, 22, hr, f\n')
+    file.write('lily, 22, hr, f\n')
+    file.write('tiger, 37, it, m\n')
+    file.write('lisa, 25, hr, f\n')
     # 关闭文件
     file.close()
 
 
-# 读取并做处理
-def read_and_refactor():
+# 读取文件，生成每个人的欢迎语句
+# name, age 岁，是一个 描述语
+def read_and_process_file():
     # 打开文件
-    data = open('lesson2.txt')
-    # 依次取出每一条记录,存储在变量中
-    result = []
+    data = open('lesson2.txt', 'r')
+    # define a list
+    results = []
+    # 依次读取每一条记录
     for line in data:
-        name, age, department, sex = line.split(', ')
-        # 把记录写入一句话的模版里。 name 今年 age 岁，
-        # 是一个XXXX的根据性别来称呼
-        if sex.strip() == 'm':
-            desc = '一个阳光男孩'
+        name, age, depart, sex = line.split(', ')
+        sex = sex.strip()
+        if sex == 'm':
+            desc = '阳光男孩'
+        elif sex == 'f' and age < 45:
+            desc = '美丽冻人的小姐姐'
         else:
-            desc = '一个美丽冻人的小姐姐'
-        result.append('{name}今年{age}岁，{desc}\n'.format(name=name, age=age, desc=desc))
-    data.close()
-    return result
+            desc = '和蔼可亲的婶婶'
+        # 生成问候语
+        results.append('{}, {}岁, 是一个{}\n'.format(name, age, desc))
 
-
-# 存储结果到一个新的文件
-def write_result(input_data):
-    # 打开文件
-    file = open('lesson2_report.txt', 'w')
-    # 写入内容
-    file.writelines(input_data)
     # 关闭文件
-    file.close()
+    data.close()
 
+    return results
+
+
+# 把问候语的结果，保存到文件
+def save_results_to_file(input_data):
+    # 打开文件
+    report = open('lesson2_report.txt', 'w', encoding='utf_8_sig')
+    # 保存文件
+    report.writelines(input_data)
+    # 关闭文件
+    report.close()
 
 # create_file()
-contents = read_and_refactor()
-write_result(contents)
+
+
+# contents = read_and_process_file()
+# save_results_to_file(input_data=contents)
+
