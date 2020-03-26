@@ -38,17 +38,17 @@ def read_and_process_file():
 
 
 # 把问候语的结果，保存到文件
-def save_results_to_file(input_data):
+def save_results_to_file(input_list):
     # 打开文件
     report = open('lesson2_report.txt', 'w', encoding='utf_8_sig')
     # 保存文件
-    report.writelines(input_data)
+    report.writelines(input_list)
     # 关闭文件
     report.close()
+
 
 # create_file()
 
 
-# contents = read_and_process_file()
-# save_results_to_file(input_data=contents)
-
+contents = read_and_process_file()
+save_results_to_file(contents)

@@ -71,7 +71,7 @@ shares = split_info('分别为', None, '、', share_info)
 reports1 = get_reports(brands, shipments, "2019年全年智能手机出货量第{}的品牌为{}，出货量为{}。\n", 5)
 reports2 = get_reports(brands, shares, "2019年全年智能手机出货量第{}的品牌为{}，份额为{}。\n", 3)
 # 写入报告
-write_file(reports1, 'lesson3_class.txt')
+write_file(reports1, 'lesson3_quiz.md')
 write_file(reports2, 'lesson3_hw.txt')
 
 
