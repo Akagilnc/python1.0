@@ -61,4 +61,3 @@ def save_to_file(input_data_list, file_name):
 get_china_latest_and_save()
 get_china_area_and_save()
 get_oversea_area_and_save()
-
