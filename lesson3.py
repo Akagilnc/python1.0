@@ -3,8 +3,6 @@ import requests
 import json
 
 
-__hello__
-
 # 调用API获得最新的疫情数据，并保存到一个json文件
 def call_api_and_save_to_file():
     # 调用API
@@ -35,5 +33,5 @@ def read_and_process():
     ))
 
 
-# call_api_and_save_to_file()
+call_api_and_save_to_file()
 read_and_process()
