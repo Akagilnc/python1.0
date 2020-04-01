@@ -12,7 +12,7 @@ def get_links(page):
     with webdriver.Chrome(chrome_options=chrome_options) as driver:
         driver.get('http://www.ciaps.org.cn/quote/list-htm-catid-596.html')
         link_list = []
-        for i in range(1, page+1):
+        for i in range(1,page+1):
             if i != 1:
                 driver.find_element_by_css_selector('body > div:nth-child(9) > div.m_l.f_l > div > div.catlist > div > a:nth-child(5)').click()
                 time.sleep(random.randrange(2, 6))

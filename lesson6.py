@@ -5,6 +5,7 @@ from datetime import datetime
 
 # 读取一个excel文件
 def get_infos_from_one_file(filename):
+    print('getting info from {}'.format(filename))
     return pd.read_excel('./files/{}'.format(filename),
                          engine='openpyxl',
                          usecols=['provinceName', 'confirmedCount', 'curedCount',
@@ -27,6 +28,7 @@ def get_all_latest_infos():
         info = info.rename(datetime.fromtimestamp(info['updateTime'] / 1000).strftime('%Y-%m-%d %H:%M:%S'))
         info = info.drop('updateTime')
         all_infos = all_infos.append(info)
+    print('all infos done')
     return all_infos
 
 
@@ -37,15 +39,17 @@ def get_sum_info(input_df, sum_drop_name, df_drop_name):
     sum_info[sum_drop_name] = ""
     input_df = input_df.append(sum_info)
     input_df = input_df.drop(columns=[df_drop_name])
-
+    print('get sum info done')
     return input_df
 
 
 # 存入一个文件的不同sheet 用pandas
 def write_to_single_file(input_chn_df, input_oversea_df, filename):
-    with pd.ExcelWriter('{}.xlsx'.format(filename)) as file:
+    with pd.ExcelWriter('./files/{}.xlsx'.format(filename)) as file:
         input_chn_df.to_excel(file, sheet_name='China')
+        print('save to China sheet done')
         input_oversea_df.to_excel(file, sheet_name='Oversea')
+        print('save to Oversea sheet done')
         file.save()
 
 
