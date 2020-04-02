@@ -1,6 +1,14 @@
 from openpyxl import Workbook
+import requests
 import json
 import pandas as pd
+
+
+# 获取最新数据 
+def call_api_and_save_json(address, file_name):
+    data = requests.get(address)
+    with open(file_name, 'w', encoding='utf_8') as file:
+        json.dump(data.json(), file, ensure_ascii=False, indent=4)
 
 
 # 读取json
@@ -52,7 +60,8 @@ def write_details_to_excel(input_data, file_name):
 
 def write_details_to_excel_with_pandas(input_data, file_name):
     # 利用pandas转换原有的字典数据变成 DataFrame
-    df = pd.DataFrame(input_data)
+    df = pd.DataFrame(input_data, columns=['cityName', 'currentConfirmedCount', 'confirmedCount',
+                                           'curedCount', 'deadCount', 'locationId', 'cityEnglishName'])
     # 求和
     sum_info = df.sum()
     # 重命名
@@ -65,17 +74,25 @@ def write_details_to_excel_with_pandas(input_data, file_name):
     avg_info = avg_info.rename('平均值')
     # 将位置ID的平均值设置为空
     avg_info['locationId'] = ""
+
+    # 中位数
+    median_info = df.median()
+    median_info = median_info.rename('中位数')
+    median_info['locationId'] = ""
+
     # 添加汇总和平均值信息到DF
     df = df.append(sum_info)
     df = df.append(avg_info)
+    df = df.append(median_info)
 
     # 保存 excel文件
     df.to_excel(file_name)
 
 
+# call_api_and_save_json('https://lab.isaaclin.cn/nCoV/api/area?province=上海市', '2019_conv.json')
 data = read_file('2019_conv.json')
 infos = data['results'][0]
-# write_info_to_excel(infos, 'conv.xlsx')
+# # write_info_to_excel(infos, 'conv.xlsx')
 details_info = infos['cities']
-# write_details_to_excel(details_info, 'conv_details.xlsx')
+# # write_details_to_excel(details_info, 'conv_details.xlsx')
 write_details_to_excel_with_pandas(details_info, 'conv_details_pandas.xlsx')
